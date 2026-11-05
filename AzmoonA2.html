@@ -1,0 +1,1171 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#100b18">
+<title>YOSRA | French Challenge A2</title>
+
+<style>
+:root{
+--bg:#100b18;
+--panel:#1d1528;
+--panel2:#291d38;
+--purple:#9868cb;
+--lav:#c6a5f3;
+--gold:#e8c77b;
+--text:#fff9ff;
+--muted:#b9a9c9;
+--green:#70d9a6;
+--red:#ff8196;
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+min-height:100vh;
+background:radial-gradient(ellipse at top,#402451 0%,#100b18 65%);
+color:var(--text);
+font-family:Tahoma,Arial,sans-serif;
+}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.app{max-width:760px;margin:auto;padding:15px 14px 35px}
+header{text-align:center;padding:23px 5px}
+.logo{
+font-family:Georgia,serif;
+font-size:34px;
+letter-spacing:6px;
+color:var(--gold);
+text-shadow:0 0 25px #b58ae477;
+}
+.sub{
+font-size:10px;
+letter-spacing:4px;
+color:var(--lav);
+direction:ltr;
+margin-top:8px;
+}
+.tagline{
+font-size:12px;
+color:var(--muted);
+margin-top:14px;
+line-height:2;
+}
+.panel{
+background:linear-gradient(145deg,#291d38,#191222);
+border:1px solid #74539566;
+border-radius:19px;
+padding:19px;
+margin:14px 0;
+box-shadow:0 12px 35px #0005;
+}
+.hero{text-align:center}
+.hero h2{color:var(--gold);font-size:20px;margin:5px}
+.hero p{font-size:12px;color:var(--muted);line-height:2}
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:9px;
+margin-top:18px;
+}
+.stat{
+background:#ffffff09;
+border:1px solid #ffffff15;
+border-radius:13px;
+padding:13px 5px;
+text-align:center;
+}
+.stat strong{
+display:block;
+color:var(--gold);
+font-size:21px;
+}
+.stat small{font-size:10px;color:var(--muted)}
+.section-title{
+color:var(--gold);
+font-size:14px;
+margin:4px 0 14px;
+}
+.field-label{
+display:block;
+font-size:12px;
+color:var(--muted);
+margin:12px 0 7px;
+}
+input,select{
+width:100%;
+padding:13px;
+background:#120d1c;
+border:1px solid #745395;
+border-radius:10px;
+color:white;
+font-size:13px;
+outline:none;
+}
+input:focus,select:focus{border-color:var(--gold)}
+.modules{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+.module{
+background:#ffffff08;
+border:1px solid #ffffff20;
+padding:13px;
+border-radius:13px;
+text-align:right;
+color:var(--text);
+min-height:105px;
+}
+.module:disabled{opacity:.4;cursor:not-allowed}
+.module .num{
+color:var(--gold);
+font-size:10px;
+direction:ltr;
+text-align:left;
+}
+.module b{display:block;font-size:13px;margin:8px 0}
+.module small{font-size:10px;color:var(--muted)}
+.module.done{border-color:var(--green)}
+.module.active{border-color:var(--gold);background:#e8c77b12}
+.progress{
+height:7px;
+background:#ffffff16;
+border-radius:10px;
+overflow:hidden;
+margin:11px 0;
+}
+.progress div{
+height:100%;
+width:0;
+background:linear-gradient(90deg,var(--purple),var(--gold));
+transition:.4s;
+}
+.primary,.secondary{
+width:100%;
+border-radius:12px;
+padding:14px;
+margin-top:10px;
+font-size:13px;
+font-weight:bold;
+}
+.primary{
+border:0;
+background:linear-gradient(110deg,#8553b8,#bd91e7);
+color:white;
+}
+.secondary{
+border:1px solid #9871bd;
+background:#ffffff08;
+color:var(--lav);
+}
+button:disabled{opacity:.4;cursor:not-allowed}
+.note{
+font-size:11px;
+line-height:2;
+color:var(--muted);
+}
+#quiz,#result{display:none}
+.question-meta{
+display:flex;
+justify-content:space-between;
+gap:8px;
+font-size:11px;
+color:var(--muted);
+}
+.question{
+font-size:18px;
+line-height:1.9;
+text-align:center;
+padding:24px 5px 15px;
+direction:ltr;
+}
+.translation{
+text-align:center;
+font-size:12px;
+color:var(--muted);
+line-height:2;
+margin-bottom:18px;
+}
+.options{display:grid;gap:9px}
+.option{
+background:#ffffff09;
+border:1px solid #ffffff22;
+color:var(--text);
+border-radius:12px;
+padding:14px 10px;
+text-align:center;
+font-size:14px;
+direction:ltr;
+}
+.option.selected{border-color:var(--gold);background:#e8c77b19}
+.option.correct{border-color:var(--green);background:#69d6a019}
+.option.wrong{border-color:var(--red);background:#ff829515}
+.feedback{
+display:none;
+border-radius:12px;
+padding:13px;
+margin-top:15px;
+font-size:12px;
+line-height:2;
+}
+.feedback.good{display:block;background:#69d6a015;color:var(--green)}
+.feedback.bad{display:block;background:#ff829515;color:#ffabb8}
+.feedback b{display:block;margin-bottom:5px}
+.score{
+font-size:48px;
+color:var(--gold);
+font-weight:bold;
+margin:18px;
+text-align:center;
+}
+.result-message{
+line-height:2.2;
+font-size:13px;
+color:var(--muted);
+text-align:center;
+}
+.report{
+white-space:pre-wrap;
+text-align:right;
+direction:rtl;
+background:#090610;
+border:1px solid #ffffff20;
+border-radius:12px;
+padding:14px;
+font-size:11px;
+line-height:2;
+margin-top:15px;
+overflow-wrap:anywhere;
+}
+.footer{
+text-align:center;
+color:#786b86;
+font-size:10px;
+margin-top:27px;
+line-height:2;
+}
+.badge{
+display:inline-block;
+padding:6px 12px;
+border:1px solid #e8c77b66;
+border-radius:30px;
+color:var(--gold);
+font-size:10px;
+}
+@media(max-width:420px){
+.logo{font-size:29px}
+.panel{padding:15px}
+.question{font-size:16px}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+<div class="logo">YOSRA</div>
+<div class="sub">CHALLENGE ENGINE</div>
+<div class="tagline">
+اینجا ادعای بلد بودن کافی نیست؛<br>
+باید توانایی خودت را ثابت کنی.
+</div>
+</header>
+
+<!-- HOME -->
+<div id="home">
+
+<div class="panel hero">
+<div class="badge">FRENCH EDITION · A2</div>
+<h2 style="margin-top:15px">PROVE YOUR FRENCH</h2>
+<p>
+مسیر اختصاصی سنجش زبان فرانسوی<br>
+Challenge · Practice · Progress
+</p>
+
+<div class="stats">
+<div class="stat">
+<strong id="totalXP">0</strong>
+<small>XP POINTS</small>
+</div>
+<div class="stat">
+<strong id="completed">0/6</strong>
+<small>LEVELS</small>
+</div>
+<div class="stat">
+<strong id="best">0%</strong>
+<small>BEST SCORE</small>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<div class="section-title">اطلاعات زبان‌آموز</div>
+<label class="field-label">نام و نام خانوادگی</label>
+<input id="studentName" placeholder="نام خود را وارد کنید" maxlength="50">
+
+<label class="field-label">زمان پاسخ‌گویی</label>
+<select id="timerMode">
+<option value="0">بدون محدودیت زمانی</option>
+<option value="60">۶۰ ثانیه برای هر سؤال</option>
+<option value="90">۹۰ ثانیه برای هر سؤال</option>
+</select>
+
+<p class="note">
+زمان‌سنج اختیاری است. معیار اصلی ارزیابی، دقت و پاسخ صحیح است.
+</p>
+</div>
+
+<div class="panel">
+<div class="section-title">مسیر پیشرفت</div>
+<div class="progress"><div id="overallBar"></div></div>
+<div id="modules" class="modules"></div>
+</div>
+
+<div class="panel">
+<div class="section-title">قوانین عبور از مراحل</div>
+<p class="note">
+🏆 ۹۰ تا ۱۰۰ درصد: تسلط و باز شدن مرحله بعد<br>
+🟡 ۷۰ تا ۸۹ درصد: نیاز به تمرین و تلاش مجدد<br>
+🔴 کمتر از ۷۰ درصد: بازگشت به مبحث و تمرین مجدد
+</p>
+<p class="note">
+برای عبور از مرحله، حداقل ۹۰٪ امتیاز لازم است.
+</p>
+</div>
+
+<div class="panel">
+<div class="section-title">مدیریت اطلاعات</div>
+<button class="secondary" onclick="resetProgress()">
+پاک کردن تمام پیشرفت‌ها
+</button>
+<p class="note">
+اطلاعات این نسخه در حافظه مرورگر همین دستگاه ذخیره می‌شود.
+</p>
+</div>
+
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="panel">
+
+<div class="question-meta">
+<span id="moduleLabel">LEVEL 01</span>
+<span id="timer">∞</span>
+</div>
+
+<div class="progress"><div id="quizBar"></div></div>
+
+<div class="question-meta">
+<span id="questionCount"></span>
+<span>A2 · FRENCH</span>
+</div>
+
+<div id="question" class="question"></div>
+<div id="translation" class="translation"></div>
+
+<div id="options" class="options"></div>
+<div id="feedback" class="feedback"></div>
+
+<button class="secondary" id="speak" onclick="speakQuestion()">
+🔊 Écouter la phrase
+</button>
+
+<button class="primary" id="next" disabled onclick="checkAnswer()">
+تأیید پاسخ
+</button>
+
+<button class="secondary" onclick="exitQuiz()">
+بازگشت به مسیر
+</button>
+
+</div>
+
+<!-- RESULT -->
+<div id="result" class="panel">
+
+<div class="section-title" style="text-align:center">
+CHALLENGE RESULT
+</div>
+
+<div class="score" id="score">0%</div>
+<h3 id="resultTitle" style="text-align:center"></h3>
+
+<div id="resultMessage" class="result-message"></div>
+
+<div class="stats">
+<div class="stat">
+<strong id="correctCount">0</strong>
+<small>پاسخ صحیح</small>
+</div>
+<div class="stat">
+<strong id="earnedXP">0</strong>
+<small>XP کسب‌شده</small>
+</div>
+<div class="stat">
+<strong id="statusIcon">—</strong>
+<small>وضعیت</small>
+</div>
+</div>
+
+<div id="report" class="report"></div>
+
+<button class="primary" onclick="copyReport()">
+کپی گزارش برای معلم
+</button>
+
+<button class="secondary" onclick="backHome()">
+بازگشت به مسیر
+</button>
+
+</div>
+
+<div class="footer">
+YOSRA STUDIO<br>
+INTERACTIVE LANGUAGE LEARNING SYSTEM<br>
+YOSRA MASTER ENGINE · A2 EDITION
+</div>
+
+</div>
+
+<script>
+"use strict";
+
+/* =========================
+   QUESTION BANK
+========================= */
+
+const lessons = [
+
+{
+name:"Vocabulaire",
+fa:"واژگان",
+questions:[
+{
+q:"Je vais à la pharmacie pour acheter...",
+t:"برای خرید چه چیزی به داروخانه می‌روم؟",
+o:["des médicaments","des chaussures","du pain","un billet"],
+a:0,
+e:"À la pharmacie, on achète des médicaments."
+},
+{
+q:"Quel est le contraire de « propre » ?",
+t:"متضاد تمیز چیست؟",
+o:["rapide","sale","facile","cher"],
+a:1,
+e:"Propre = تمیز / Sale = کثیف"
+},
+{
+q:"Je suis fatigué. Je veux...",
+t:"خسته‌ام. می‌خواهم...",
+o:["me reposer","me dépêcher","me disputer","me promener"],
+a:0,
+e:"Se reposer = استراحت کردن."
+},
+{
+q:"On prend le train à...",
+t:"قطار را از کجا سوار می‌شویم؟",
+o:["la gare","la boulangerie","la mairie","la piscine"],
+a:0,
+e:"La gare = ایستگاه قطار."
+}
+]
+},
+
+{
+name:"Grammaire",
+fa:"دستور زبان",
+questions:[
+{
+q:"Hier, je ___ au cinéma.",
+t:"دیروز به سینما رفتم.",
+o:["vais","suis allé","irai","aller"],
+a:1,
+e:"برای گذشته تمام‌شده از passé composé استفاده می‌کنیم."
+},
+{
+q:"Elle habite ici ___ trois ans.",
+t:"او سه سال است اینجا زندگی می‌کند.",
+o:["pendant","depuis","dans","en"],
+a:1,
+e:"Depuis برای کاری است که در گذشته شروع شده و هنوز ادامه دارد."
+},
+{
+q:"Il faut ___ ses devoirs.",
+t:"باید تکالیف را انجام داد.",
+o:["faire","fait","fais","faisant"],
+a:0,
+e:"Il faut + infinitif."
+},
+{
+q:"Je voudrais ___ café, s'il vous plaît.",
+t:"یک قهوه می‌خواهم لطفاً.",
+o:["un","une","des","du"],
+a:0,
+e:"Un café؛ اسم café مذکر است."
+}
+]
+},
+
+{
+name:"Conjugaison",
+fa:"صرف فعل",
+questions:[
+{
+q:"Nous ___ français depuis deux ans.",
+t:"ما دو سال است فرانسوی یاد می‌گیریم.",
+o:["apprenons","apprend","apprenez","apprendre"],
+a:0,
+e:"Apprendre با nous می‌شود apprenons."
+},
+{
+q:"Hier, elles ___ une lettre.",
+t:"دیروز آن‌ها نامه‌ای نوشتند.",
+o:["écrivent","ont écrit","écrira","écrire"],
+a:1,
+e:"Écrire در passé composé: ont écrit."
+},
+{
+q:"Demain, tu ___ tes amis.",
+t:"فردا دوستانت را خواهی دید.",
+o:["vois","as vu","verras","voir"],
+a:2,
+e:"Futur simple فعل voir: tu verras."
+},
+{
+q:"Je ___ me lever tôt.",
+t:"من باید زود بیدار شوم.",
+o:["dois","doit","devons","devez"],
+a:0,
+e:"Devoir با je می‌شود dois."
+}
+]
+},
+
+{
+name:"Construction",
+fa:"جمله‌سازی",
+questions:[
+{
+q:"کدام جمله صحیح است؟",
+t:"ساختار منفی را بررسی کن.",
+o:[
+"Je ne comprends pas.",
+"Je comprends ne pas.",
+"Ne je comprends pas.",
+"Je pas comprends ne."
+],
+a:0,
+e:"ساختار منفی: ne + verbe + pas."
+},
+{
+q:"کدام جمله طبیعی‌تر است؟",
+t:"من دنبال کلیدهایم می‌گردم.",
+o:[
+"Je cherche mes clés.",
+"Je regarde mes clés.",
+"Je demande mes clés.",
+"Je trouve mes clés."
+],
+a:0,
+e:"Chercher = جست‌وجو کردن."
+},
+{
+q:"Je suis arrivé en retard ___ le bus.",
+t:"به خاطر اتوبوس دیر رسیدم.",
+o:["à cause de","grâce à","depuis","malgré"],
+a:0,
+e:"À cause de = به دلیل."
+},
+{
+q:"کدام جمله درست است؟",
+t:"اگر وقت داشته باشم، خواهم آمد.",
+o:[
+"Si j'ai le temps, je viendrai.",
+"Si j'aurai le temps, je viens.",
+"Si j'ai temps, je venir.",
+"Si j'avais le temps, je viens."
+],
+a:0,
+e:"Si + présent، futur simple."
+}
+]
+},
+
+{
+name:"Compréhension",
+fa:"درک مطلب",
+questions:[
+{
+q:"Marie prend le bus à 8h. Elle arrive au travail à 8h30. Combien de temps dure le trajet ?",
+t:"مدت مسیر چقدر است؟",
+o:["15 minutes","30 minutes","45 minutes","1 heure"],
+a:1,
+e:"از ساعت ۸ تا ۸:۳۰ برابر ۳۰ دقیقه است."
+},
+{
+q:"Paul ne sort pas parce qu'il pleut.",
+t:"چرا پل بیرون نمی‌رود؟",
+o:["Il est malade.","Il travaille.","Il pleut.","Il est fatigué."],
+a:2,
+e:"Parce qu'il pleut = چون باران می‌بارد."
+},
+{
+q:"Le magasin ferme à 19h. Il est 19h15.",
+t:"آیا فروشگاه باز است؟",
+o:["Oui, toute la nuit.","Non, il est fermé.","Il ouvre maintenant.","On ne sait pas."],
+a:1,
+e:"ساعت ۱۹:۱۵ بعد از زمان تعطیلی فروشگاه است."
+},
+{
+q:"Sophie préfère le thé au café.",
+t:"سوفی چه چیزی را ترجیح می‌دهد؟",
+o:["Le café","Le thé","Le lait","Le jus"],
+a:1,
+e:"Préférer A à B = A را به B ترجیح دادن."
+}
+]
+},
+
+{
+name:"BOSS LEVEL",
+fa:"آزمون نهایی",
+questions:[
+{
+q:"Hier, nous ___ au restaurant et nous ___ une pizza.",
+t:"دیروز به رستوران رفتیم و پیتزا خوردیم.",
+o:[
+"sommes allés / avons mangé",
+"allons / mangeons",
+"irons / mangerons",
+"avons allé / sommes mangé"
+],
+a:0,
+e:"Aller با être و manger با avoir در passé composé."
+},
+{
+q:"Je n'ai pas encore ___ mes devoirs.",
+t:"هنوز تکالیفم را انجام نداده‌ام.",
+o:["fait","faire","fais","faisant"],
+a:0,
+e:"Faire در participe passé می‌شود fait."
+},
+{
+q:"Si tu es malade, tu ___ rester à la maison.",
+t:"اگر مریض هستی، بهتر است خانه بمانی.",
+o:["devrais","devrait","devez","doivent"],
+a:0,
+e:"Tu devrais = بهتر است / باید."
+},
+{
+q:"Elle est plus grande ___ sa sœur.",
+t:"او از خواهرش قدبلندتر است.",
+o:["que","comme","de","à"],
+a:0,
+e:"ساختار مقایسه: plus ... que."
+},
+{
+q:"Nous habitons ici ___ 2022.",
+t:"از سال ۲۰۲۲ اینجا زندگی می‌کنیم.",
+o:["depuis","pendant","dans","en"],
+a:0,
+e:"Depuis + زمان شروع."
+}
+]
+}
+
+];
+
+/* =========================
+   APPLICATION STATE
+========================= */
+
+const STORAGE_KEY="YOSRA_CHALLENGE_A2_V2";
+
+let xp=0;
+let records={};
+let best=0;
+
+let current=0;
+let index=0;
+let answers=[];
+let selected=-1;
+let locked=false;
+let seconds=0;
+let clock=null;
+let reportText="";
+let runToken=0;
+
+/* =========================
+   STORAGE
+========================= */
+
+function loadData(){
+try{
+const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
+xp=Number(data.xp)||0;
+records=data.records||{};
+best=Number(data.best)||0;
+}catch(e){
+xp=0;
+records={};
+best=0;
+}
+updateStats();
+renderModules();
+}
+
+function saveData(){
+try{
+localStorage.setItem(STORAGE_KEY,JSON.stringify({
+xp:xp,
+records:records,
+best:best
+}));
+}catch(e){
+alert("فضای ذخیره‌سازی مرورگر در دسترس نیست.");
+}
+}
+
+function resetProgress(){
+if(!confirm("تمام امتیازها و پیشرفت‌های ذخیره‌شده پاک شوند؟"))return;
+xp=0;
+records={};
+best=0;
+saveData();
+updateStats();
+renderModules();
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function updateStats(){
+const passed=Object.values(records).filter(r=>r&&r.passed).length;
+document.getElementById("totalXP").textContent=xp;
+document.getElementById("completed").textContent=passed+"/6";
+document.getElementById("best").textContent=best+"%";
+document.getElementById("overallBar").style.width=(passed/6*100)+"%";
+}
+
+function renderModules(){
+let html="";
+
+lessons.forEach((lesson,i)=>{
+const record=records[i];
+const unlocked=i===0||(records[i-1]&&records[i-1].passed);
+let status="قفل";
+
+if(record&&record.passed)status="✓ تسلط";
+else if(record)status=record.score+"% · تلاش مجدد";
+else if(unlocked)status="آماده شروع";
+
+html+=`
+<button class="module ${record&&record.passed?'done':unlocked?'active':''}"
+${unlocked?'':'disabled'}
+onclick="startLesson(${i})">
+
+<div class="num">LEVEL 0${i+1}</div>
+<b>${lesson.name}</b>
+<small>${lesson.fa} · ${status}</small>
+
+</button>`;
+});
+
+document.getElementById("modules").innerHTML=html;
+}
+
+/* =========================
+   START LESSON
+========================= */
+
+function startLesson(i){
+const name=document.getElementById("studentName").value.trim();
+
+if(!name){
+alert("لطفاً ابتدا نام زبان‌آموز را وارد کن.");
+document.getElementById("studentName").focus();
+return;
+}
+
+current=i;
+index=0;
+answers=[];
+selected=-1;
+locked=false;
+
+runToken++;
+
+document.getElementById("home").style.display="none";
+document.getElementById("result").style.display="none";
+document.getElementById("quiz").style.display="block";
+
+document.getElementById("moduleLabel").textContent=
+"LEVEL 0"+(i+1)+" · "+lessons[i].name.toUpperCase();
+
+showQuestion();
+window.scrollTo(0,0);
+}
+
+/* =========================
+   QUESTION DISPLAY
+========================= */
+
+function showQuestion(){
+const lesson=lessons[current];
+const q=lesson.questions[index];
+
+selected=-1;
+locked=false;
+
+document.getElementById("question").textContent=q.q;
+document.getElementById("translation").textContent=q.t;
+
+document.getElementById("questionCount").textContent=
+"QUESTION "+(index+1)+" / "+lesson.questions.length;
+
+document.getElementById("quizBar").style.width=
+(index/lesson.questions.length*100)+"%";
+
+document.getElementById("feedback").className="feedback";
+document.getElementById("feedback").textContent="";
+
+const options=document.getElementById("options");
+
+options.innerHTML="";
+
+q.o.forEach((option,j)=>{
+const button=document.createElement("button");
+button.className="option";
+button.textContent=option;
+button.onclick=()=>choose(j);
+options.appendChild(button);
+});
+
+const next=document.getElementById("next");
+next.disabled=true;
+next.textContent="تأیید پاسخ";
+next.onclick=checkAnswer;
+
+startTimer();
+}
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer(){
+clearInterval(clock);
+
+const limit=Number(document.getElementById("timerMode").value);
+seconds=limit;
+
+showTimer();
+
+if(limit<=0)return;
+
+const token=runToken;
+
+clock=setInterval(()=>{
+if(token!==runToken){
+clearInterval(clock);
+return;
+}
+
+seconds--;
+showTimer();
+
+if(seconds<=0){
+clearInterval(clock);
+timeExpired();
+}
+},1000);
+}
+
+function showTimer(){
+document.getElementById("timer").textContent=
+seconds>0?"⏱ "+seconds+"s":"∞";
+}
+
+function timeExpired(){
+if(locked)return;
+
+locked=true;
+selected=-1;
+answers.push(-1);
+
+document.querySelectorAll(".option").forEach((button,j)=>{
+if(j===lessons[current].questions[index].a){
+button.classList.add("correct");
+}
+button.disabled=true;
+});
+
+const feedback=document.getElementById("feedback");
+feedback.className="feedback bad";
+feedback.textContent="زمان تمام شد! پاسخ ثبت نشد.";
+
+const next=document.getElementById("next");
+next.disabled=false;
+next.textContent=index===lessons[current].questions.length-1?
+"مشاهده نتیجه":"سؤال بعدی";
+next.onclick=advance;
+}
+
+/* =========================
+   ANSWERS
+========================= */
+
+function choose(j){
+if(locked)return;
+
+selected=j;
+
+document.querySelectorAll(".option").forEach((button,k)=>{
+button.classList.toggle("selected",k===j);
+});
+
+document.getElementById("next").disabled=false;
+}
+
+function checkAnswer(){
+if(locked||selected<0)return;
+
+locked=true;
+clearInterval(clock);
+
+const q=lessons[current].questions[index];
+const good=selected===q.a;
+
+answers.push(selected);
+
+document.querySelectorAll(".option").forEach((button,j)=>{
+button.disabled=true;
+if(j===q.a)button.classList.add("correct");
+if(j===selected&&!good)button.classList.add("wrong");
+});
+
+const feedback=document.getElementById("feedback");
+
+feedback.className="feedback "+(good?"good":"bad");
+
+feedback.innerHTML=
+`<b>${good?"✓ Excellent!":"✗ Pas tout à fait !"}</b>${q.e}`;
+
+const next=document.getElementById("next");
+next.disabled=false;
+next.textContent=index===lessons[current].questions.length-1?
+"مشاهده نتیجه":"سؤال بعدی";
+next.onclick=advance;
+}
+
+function advance(){
+if(index<lessons[current].questions.length-1){
+index++;
+showQuestion();
+}else{
+finishLesson();
+}
+}
+
+/* =========================
+   FINISH & SCORING
+========================= */
+
+function finishLesson(){
+clearInterval(clock);
+runToken++;
+
+const lesson=lessons[current];
+const total=lesson.questions.length;
+
+let correct=0;
+
+answers.forEach((answer,i)=>{
+if(answer===lesson.questions[i].a)correct++;
+});
+
+const score=Math.round(correct/total*100);
+const passed=score>=90;
+
+const old=records[current];
+
+if(!old||score>old.score){
+records[current]={
+score:score,
+passed:passed||(old&&old.passed)||false,
+attempts:(old?old.attempts:0)+1
+};
+}else{
+records[current].attempts=(old.attempts||0)+1;
+if(passed)records[current].passed=true;
+}
+
+const earned=correct*10+(passed?30:0);
+
+xp+=earned;
+best=Math.max(best,score);
+
+saveData();
+updateStats();
+renderModules();
+
+const title=passed?
+"LEVEL MASTERED 🏆":
+score>=70?"ALMOST THERE!":"NEEDS PRACTICE";
+
+const message=passed?
+"تبریک! تسلط خودت را ثابت کردی. مرحله بعد برایت باز شد.":
+score>=70?
+"عملکرد خوبی داشتی؛ اما هنوز به حد نصاب عبور نرسیده‌ای. دوباره تلاش کن.":
+"این مبحث به تمرین بیشتری نیاز دارد. پس از مرور، دوباره امتحان بده.";
+
+const name=document.getElementById("studentName").value.trim();
+
+document.getElementById("quiz").style.display="none";
+document.getElementById("result").style.display="block";
+
+document.getElementById("score").textContent=score+"%";
+document.getElementById("resultTitle").textContent=title;
+document.getElementById("resultMessage").textContent=message;
+
+document.getElementById("correctCount").textContent=correct+"/"+total;
+document.getElementById("earnedXP").textContent=earned;
+document.getElementById("statusIcon").textContent=passed?"✓":"↻";
+
+reportText=
+"YOSRA CHALLENGE ENGINE\n"+
+"FRENCH A2 EDITION\n"+
+"--------------------------\n"+
+"نام زبان‌آموز: "+name+"\n"+
+"مرحله: "+lesson.name+"\n"+
+"تاریخ: "+new Date().toLocaleDateString("fa-IR")+"\n"+
+"امتیاز: "+score+"%\n"+
+"پاسخ صحیح: "+correct+"/"+total+"\n"+
+"وضعیت: "+(passed?"تسلط و عبور":"نیاز به تلاش مجدد")+"\n"+
+"XP کسب‌شده: "+earned+"\n"+
+"تعداد تلاش‌ها: "+records[current].attempts+"\n"+
+"--------------------------\n"+
+"تحلیل پاسخ‌ها:\n\n"+
+lesson.questions.map((q,i)=>{
+const answer=answers[i];
+return (i+1)+". "+(answer===q.a?"✓ صحیح":"✗ غلط")+
+"\nسؤال: "+q.q+
+"\nپاسخ انتخابی: "+(answer>=0?q.o[answer]:"بدون پاسخ")+
+"\nپاسخ صحیح: "+q.o[q.a]+
+"\nتوضیح: "+q.e;
+}).join("\n\n");
+
+document.getElementById("report").textContent=reportText;
+
+window.scrollTo(0,0);
+}
+
+/* =========================
+   FRENCH PRONUNCIATION
+========================= */
+
+function speakQuestion(){
+const q=lessons[current].questions[index].q;
+
+if(!("speechSynthesis" in window)){
+alert("تلفظ در این مرورگر پشتیبانی نمی‌شود.");
+return;
+}
+
+speechSynthesis.cancel();
+
+const utterance=new SpeechSynthesisUtterance(q);
+utterance.lang="fr-FR";
+utterance.rate=.85;
+
+const voices=speechSynthesis.getVoices();
+const frenchVoice=voices.find(v=>
+v.lang.toLowerCase().startsWith("fr")
+);
+
+if(frenchVoice)utterance.voice=frenchVoice;
+
+speechSynthesis.speak(utterance);
+}
+
+/* =========================
+   REPORT
+========================= */
+
+async function copyReport(){
+try{
+if(navigator.clipboard&&window.isSecureContext){
+await navigator.clipboard.writeText(reportText);
+}else{
+fallbackCopy();
+return;
+}
+alert("گزارش کپی شد. می‌توانی برای معلم ارسال کنی.");
+}catch(e){
+fallbackCopy();
+}
+}
+
+function fallbackCopy(){
+const area=document.createElement("textarea");
+area.value=reportText;
+area.style.position="fixed";
+area.style.opacity="0";
+document.body.appendChild(area);
+area.select();
+
+try{
+document.execCommand("copy");
+alert("گزارش کپی شد.");
+}catch(e){
+alert("کپی خودکار انجام نشد. متن گزارش را انتخاب و کپی کن.");
+}
+
+area.remove();
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function backHome(){
+clearInterval(clock);
+runToken++;
+
+document.getElementById("result").style.display="none";
+document.getElementById("home").style.display="block";
+
+renderModules();
+updateStats();
+window.scrollTo(0,0);
+}
+
+function exitQuiz(){
+if(confirm("از آزمون خارج می‌شوی. نتیجه این تلاش ثبت نخواهد شد.")){
+clearInterval(clock);
+runToken++;
+
+document.getElementById("quiz").style.display="none";
+document.getElementById("home").style.display="block";
+
+renderModules();
+window.scrollTo(0,0);
+}
+}
+
+/* =========================
+   INITIALIZATION
+========================= */
+
+loadData();
+
+if("speechSynthesis" in window){
+speechSynthesis.getVoices();
+}
+</script>
+</body>
+</html>
